@@ -1,24 +1,19 @@
 // ./components/Dialog.jsx
-import { useEffect, useRef } from "react";
- 
-function Dialog(props) { 
-  const ref = useRef(null);
+import {useEffect, useRef} from "react";
 
-  useEffect(() => {
-    console.log(ref)
-    if (props.isShowing) {
-      ref.current?.showModal();
-    } else {
-      ref.current?.close(); 
-    }
-  }, [props.isShowing]);
+function Dialog(props) {
+    const ref = useRef(null);
 
-  return (
-    <dialog ref={ref}>
-      {props.children}
-    </dialog>
-  );
-};
+    useEffect(() => {
+        console.log(ref);
+        if (props.isShowing) {
+            ref.current?.showModal();
+        } else {
+            ref.current?.close();
+        }
+    }, [props.isShowing]);
 
+    return <dialog ref={ref}>{props.children}</dialog>;
+}
 
 export default Dialog;
