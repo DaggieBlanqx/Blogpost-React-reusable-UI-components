@@ -1,4 +1,4 @@
-// ./index.jsx
+// ./App.jsx
 import { useState } from "react";
 import FormInput from "./components/FormInput.jsx";
 import CustomSelect from "./components/CustomSelect.jsx";
@@ -12,32 +12,8 @@ function App() {
   const [formTwoSearch, modify_formTwoSearch] = useState("");
   const [isModalShowing, setIsModalShowing] = useState(false);
 
-  const data = [
-    {
-      id: "1",
-      name: "One",
-    },
-    {
-      id: "2",
-      name: "Two",
-    },
-    {
-      id: "3",
-      name: "Three",
-    },
-    {
-      id: "4",
-      name: "Four",
-    },
-  ];
-
-  function handleChange(event) {
-    console.log(event.target.value);
-  }
-
-  function onToggleChange(status) {
-    console.log({ toggle: status })
-  }
+  const handleChange = (value) => console.log(value);
+  const onToggleChange = (status) => console.log({ toggle: status });
 
   const formOneSubmitter = ({ event }) => {
     console.log("Form One can be submitted");
@@ -52,22 +28,28 @@ function App() {
   return (
     <>
       <FormWrapper onSubmit={formOneSubmitter} title="Form One">
-        
+
         <CustomSelect
-          data={data}
+          data={["One", "Two", "Three", "Four"]}
           title="Select number of bedrooms"
           onSelectChange={(event) => console.log(`Got ${event.target.value}`)}
         />
 
-        <FormInput title="Email address" type={"email"} onChange={handleChange} />
-        
+        <FormInput title="First Name" type={"text"} onChange={handleChange} autocomplete={"given-name"} />
+
+        <FormInput title="Last Name" type={"text"} onChange={handleChange} autocomplete={"family-name"} />
+
+        <FormInput title="Email address" type={"email"} onChange={handleChange} autocomplete={false} />
+
         <FormInput title="Enter password" type={"password"} onChange={handleChange} />
-       
-        
+
+
         <ToggleSwitch disabled={false} defaultChecked={true} onToggleChange={onToggleChange} OnTitle="Agree" OffTitle="Disagree" />
 
-        
         <Button type="submit" variant="primary" size={"lg"}> Submit data </Button>
+
+        &nbsp;
+
       </FormWrapper>
 
       <FormWrapper onSubmit={formTwoSubmitter} title="Form Two">
@@ -75,11 +57,15 @@ function App() {
           placeHolder="Find a house near me"
           onSearch={(searchTerm) => modify_formTwoSearch(searchTerm)}
         />
+
         &nbsp;
-        <Button type="reset" variant="warning" size={"sm"}>
-          Clear Form
-        </Button>
-        
+
+        <Button type="submit" variant="success" size={"sm"}> Search </Button>
+
+        &nbsp;
+
+        <Button type="reset" variant="warning" size={"sm"} onClick={() => modify_formTwoSearch("")}> Clear Form </Button>
+
         {formTwoSearch && (
           <p>
             Searching for "<b>{formTwoSearch}</b>"
@@ -91,10 +77,7 @@ function App() {
         <Button onClick={() => setIsModalShowing(true)}>View modal</Button>
         <Modal isShowing={isModalShowing} onClose={() => setIsModalShowing(false)}>
           <h3>About this app</h3>
-          <p>
-            Here's how to use functional components & hooks (e.g useState, useRef etc)
-            to create reusable components.
-          </p>
+          <p> Try creating reusable components now!.</p>
           <Button>
             <a href="https://blog.logrocket.com/author/daggieblanqx/">
               See more articles

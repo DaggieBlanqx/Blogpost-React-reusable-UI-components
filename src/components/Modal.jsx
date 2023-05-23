@@ -1,17 +1,16 @@
-// ./components/Modal.jsx
-import React, {useState, useEffect} from "react";
-function Modal(props) {
-    const [message] = useState(props.message);
-    const [show, setShow] = useState(props.show);
-    useEffect(() => {
-        setTimeout(() => {
-            setShow(false);
-        }, 3000);
-    });
-    return (
-        <div className={show ? "modal display-block" : "modal display-none"}>
-            <section className="modal-main">{message}</section>
-        </div>
-    );
-}
+// ./components/Dialog.jsx
+import { useEffect, useRef } from "react";
+ 
+function Modal(props) { 
+  const ref = useRef(null);
+
+  useEffect(() => {
+    props?.isShowing? ref.current?.showModal() : ref.current?.close();
+  }, [props.isShowing]);
+
+  return (
+    <dialog ref={ref}> {props.children} </dialog>
+  );
+};
+
 export default Modal;
