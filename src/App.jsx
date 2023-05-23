@@ -84,6 +84,7 @@ function App() {
             </a>
           </Button>
           &nbsp;
+          
           <Button onClick={() => setIsModalShowing(false)}>Close Modal</Button>
         </Modal>
       </>
